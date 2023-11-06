@@ -2,16 +2,18 @@
 import sys
 import pygame
 import random
+from enum import Enum
 
-# Colors
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (200, 50, 50)
-GREEN = (50, 200, 50)
-BLUE = (50, 50, 200)
-GRID_COLOR = (75, 225, 75)
+# An Enum for Colors
+class Color(Enum):
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    RED = (200, 50, 50)
+    GREEN = (50, 200, 50)
+    BLUE = (50, 50, 200)
+    GRID_COLOR = (75, 225, 75)
 
-# Constants for game speed
+# Constant for game speed
 FPS = 5
 
 # Constants for cell size
@@ -49,7 +51,7 @@ class Snake:
     def __init__(self):
         self.score = 0
         self.size = 3
-        self.color = BLUE
+        self.color = Color.BLUE.value
         self.direction = RIGHT
         self.elements = [[X_CELLS // 3 * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE],
                          [(X_CELLS // 3 - 1) * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE],
@@ -101,7 +103,7 @@ class Food:
     def __init__(self):
         self.x = X_CELLS // 4 * 3 * CELL_SIZE
         self.y = Y_CELLS // 2 * CELL_SIZE
-        self.color = RED
+        self.color = Color.RED.value
 
     def random_spawn(self, snake):
         self.x = random.randrange(0, WIDTH, CELL_SIZE)
@@ -114,25 +116,25 @@ class Food:
     def draw(self):
         pygame.draw.rect(screen, self.color, (self.x, self.y, CELL_SIZE, CELL_SIZE))
 
-def draw_grid(color=GRID_COLOR):
+def draw_grid(color=Color.GRID_COLOR.value):
     for x in range(0, WIDTH, CELL_SIZE):
         pygame.draw.line(screen, color, (x, 0), (x, HEIGHT))
     for y in range(0, HEIGHT, CELL_SIZE):
         pygame.draw.line(screen, color, (0, y), (WIDTH, y))
 
 def draw():
-    screen.fill(GREEN)
+    screen.fill(Color.GREEN.value)
     draw_grid()
 
 
 def start_menu():
     # Set up the font and text for the menu
     font = pygame.font.SysFont(None, 20)
-    title_text = font.render("Snake Game", True, WHITE)
-    start_text = font.render("Press SPACE to start", True, WHITE)
+    title_text = font.render("Snake Game", True, Color.WHITE.value)
+    start_text = font.render("Press SPACE to start", True, Color.WHITE.value)
 
     # Display the menu on the screen
-    screen.fill(BLACK)
+    screen.fill(Color.BLACK.value)
     screen.blit(title_text, (X_CELLS // 3 * CELL_SIZE, Y_CELLS // 3 * CELL_SIZE))
     screen.blit(start_text, (X_CELLS // 3 * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE))
     pygame.display.flip()
@@ -148,12 +150,12 @@ def start_menu():
 def game_over(snake):
     # Set up the font and text for the menu
     font = pygame.font.SysFont(None, 20)
-    title_text = font.render("Game Over", True, WHITE)
-    score_text = font.render("Score: " + str(snake.score), True, WHITE)
-    start_text = font.render("Press SPACE to restart", True, WHITE)
+    title_text = font.render("Game Over", True, Color.WHITE.value)
+    score_text = font.render("Score: " + str(snake.score), True, Color.WHITE.value)
+    start_text = font.render("Press SPACE to restart", True, Color.WHITE.value)
 
     # Display the menu on the screen
-    screen.fill(BLACK)
+    screen.fill(Color.BLACK.value)
     screen.blit(title_text, (X_CELLS // 3 * CELL_SIZE, Y_CELLS // 3 * CELL_SIZE))
     screen.blit(start_text, (X_CELLS // 3 * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE))
     pygame.display.flip()
@@ -175,7 +177,7 @@ def main():
 
     while running:
         
-        screen.fill(GREEN)
+        screen.fill(Color.GREEN.value)
         draw_grid()
 
         for event in pygame.event.get():
