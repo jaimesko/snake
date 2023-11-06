@@ -16,32 +16,31 @@ class Color(Enum):
 # Constant for game speed
 FPS = 5
 
-# Constants for cell size
-CELL_SIZE = 20
-
-# Constants for grid dimensions
-X_CELLS = 17
-Y_CELLS = 15
-WIDTH = X_CELLS * CELL_SIZE
-HEIGHT = Y_CELLS * CELL_SIZE
-
-# Constants for grid boundaries
-X_MIN = 0
-X_MAX = WIDTH - CELL_SIZE
-Y_MIN = 0
-Y_MAX = HEIGHT - CELL_SIZE
+class Grid:
+    # Constant for cell size
+    CELL_SIZE = 20
+    # Constants for grid dimensions
+    X_CELLS = 17
+    Y_CELLS = 15
+    WIDTH = X_CELLS * CELL_SIZE
+    HEIGHT = Y_CELLS * CELL_SIZE
+    # Constants for grid boundaries
+    X_MIN = 0
+    X_MAX = WIDTH - CELL_SIZE
+    Y_MIN = 0
+    Y_MAX = HEIGHT - CELL_SIZE
 
 # Directions
-LEFT = (-CELL_SIZE, 0)
-RIGHT = (CELL_SIZE, 0)
-UP = (0, -CELL_SIZE)
-DOWN = (0, CELL_SIZE)
+LEFT = (-Grid.CELL_SIZE, 0)
+RIGHT = (Grid.CELL_SIZE, 0)
+UP = (0, -Grid.CELL_SIZE)
+DOWN = (0, Grid.CELL_SIZE)
 
 # Initialize pygame
 pygame.init()
 
 # Create the window
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((Grid.WIDTH, Grid.HEIGHT))
 pygame.display.set_caption("Game of Life")
 
 # Clock
@@ -53,9 +52,9 @@ class Snake:
         self.size = 3
         self.color = Color.BLUE.value
         self.direction = RIGHT
-        self.elements = [[X_CELLS // 3 * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE],
-                         [(X_CELLS // 3 - 1) * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE],
-                         [(X_CELLS // 3 - 2) * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE]]
+        self.elements = [[Grid.X_CELLS // 3 * Grid.CELL_SIZE, Grid.Y_CELLS // 2 * Grid.CELL_SIZE],
+                         [(Grid.X_CELLS // 3 - 1) * Grid.CELL_SIZE, Grid.Y_CELLS // 2 * Grid.CELL_SIZE],
+                         [(Grid.X_CELLS // 3 - 2) * Grid.CELL_SIZE, Grid.Y_CELLS // 2 * Grid.CELL_SIZE]]
 
     def grow(self):
         self.size += 1
@@ -72,7 +71,7 @@ class Snake:
 
     def draw(self):
         for element in self.elements:
-            pygame.draw.rect(screen, self.color, (element[0], element[1], CELL_SIZE, CELL_SIZE))
+            pygame.draw.rect(screen, self.color, (element[0], element[1], Grid.CELL_SIZE, Grid.CELL_SIZE))
 
     def self_collision(self):
         if self.elements[0] in self.elements[1:]:
@@ -85,9 +84,9 @@ class Snake:
         #return False
 
     def wall_collision(self):
-        if self.elements[0][0] < 0 or self.elements[0][0] > WIDTH - CELL_SIZE:
+        if self.elements[0][0] < 0 or self.elements[0][0] > Grid.WIDTH - Grid.CELL_SIZE:
             return True
-        elif self.elements[0][1] < 0 or self.elements[0][1] > HEIGHT - CELL_SIZE:
+        elif self.elements[0][1] < 0 or self.elements[0][1] > Grid.HEIGHT - Grid.CELL_SIZE:
             return True
         else:
             return False
@@ -101,26 +100,26 @@ class Snake:
 
 class Food:
     def __init__(self):
-        self.x = X_CELLS // 4 * 3 * CELL_SIZE
-        self.y = Y_CELLS // 2 * CELL_SIZE
+        self.x = Grid.X_CELLS // 4 * 3 * Grid.CELL_SIZE
+        self.y = Grid.Y_CELLS // 2 * Grid.CELL_SIZE
         self.color = Color.RED.value
 
     def random_spawn(self, snake):
-        self.x = random.randrange(0, WIDTH, CELL_SIZE)
-        self.y = random.randrange(0, HEIGHT, CELL_SIZE)
+        self.x = random.randrange(0, Grid.WIDTH, Grid.CELL_SIZE)
+        self.y = random.randrange(0, Grid.HEIGHT, Grid.CELL_SIZE)
         # Check if food spawns on snake
         for element in snake.elements:
             if self.x == element[0] and self.y == element[1]:
                 self.random_spawn(snake)
     
     def draw(self):
-        pygame.draw.rect(screen, self.color, (self.x, self.y, CELL_SIZE, CELL_SIZE))
+        pygame.draw.rect(screen, self.color, (self.x, self.y, Grid.CELL_SIZE, Grid.CELL_SIZE))
 
 def draw_grid(color=Color.GRID_COLOR.value):
-    for x in range(0, WIDTH, CELL_SIZE):
-        pygame.draw.line(screen, color, (x, 0), (x, HEIGHT))
-    for y in range(0, HEIGHT, CELL_SIZE):
-        pygame.draw.line(screen, color, (0, y), (WIDTH, y))
+    for x in range(0, Grid.WIDTH, Grid.CELL_SIZE):
+        pygame.draw.line(screen, color, (x, 0), (x, Grid.HEIGHT))
+    for y in range(0, Grid.HEIGHT, Grid.CELL_SIZE):
+        pygame.draw.line(screen, color, (0, y), (Grid.WIDTH, y))
 
 def draw():
     screen.fill(Color.GREEN.value)
@@ -135,8 +134,8 @@ def start_menu():
 
     # Display the menu on the screen
     screen.fill(Color.BLACK.value)
-    screen.blit(title_text, (X_CELLS // 3 * CELL_SIZE, Y_CELLS // 3 * CELL_SIZE))
-    screen.blit(start_text, (X_CELLS // 3 * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE))
+    screen.blit(title_text, (Grid.X_CELLS // 3 * Grid.CELL_SIZE, Grid.Y_CELLS // 3 * Grid.CELL_SIZE))
+    screen.blit(start_text, (Grid.X_CELLS // 3 * Grid.CELL_SIZE, Grid.Y_CELLS // 2 * Grid.CELL_SIZE))
     pygame.display.flip()
 
     # Wait for the user to press SPACE
@@ -156,8 +155,8 @@ def game_over(snake):
 
     # Display the menu on the screen
     screen.fill(Color.BLACK.value)
-    screen.blit(title_text, (X_CELLS // 3 * CELL_SIZE, Y_CELLS // 3 * CELL_SIZE))
-    screen.blit(start_text, (X_CELLS // 3 * CELL_SIZE, Y_CELLS // 2 * CELL_SIZE))
+    screen.blit(title_text, (Grid.X_CELLS // 3 * Grid.CELL_SIZE, Grid.Y_CELLS // 3 * Grid.CELL_SIZE))
+    screen.blit(start_text, (Grid.X_CELLS // 3 * Grid.CELL_SIZE, Grid.Y_CELLS // 2 * Grid.CELL_SIZE))
     pygame.display.flip()
 
     # Wait for the user to press SPACE
