@@ -13,9 +13,6 @@ class Color(Enum):
     BLUE = (50, 50, 200)
     GRID_COLOR = (75, 225, 75)
 
-# Constant for game speed
-FPS = 5
-
 class Grid:
     # Constant for cell size
     CELL_SIZE = 20
@@ -30,11 +27,15 @@ class Grid:
     Y_MIN = 0
     Y_MAX = HEIGHT - CELL_SIZE
 
-# Directions
-LEFT = (-Grid.CELL_SIZE, 0)
-RIGHT = (Grid.CELL_SIZE, 0)
-UP = (0, -Grid.CELL_SIZE)
-DOWN = (0, Grid.CELL_SIZE)
+# An Enum for Directions
+class Direction(Enum):
+    LEFT = (-Grid.CELL_SIZE, 0)
+    RIGHT = (Grid.CELL_SIZE, 0)
+    UP = (0, -Grid.CELL_SIZE)
+    DOWN = (0, Grid.CELL_SIZE)
+
+# Constant for game speed
+FPS = 5
 
 # Initialize pygame
 pygame.init()
@@ -51,7 +52,7 @@ class Snake:
         self.score = 0
         self.size = 3
         self.color = Color.BLUE.value
-        self.direction = RIGHT
+        self.direction = Direction.RIGHT.value
         self.elements = [[Grid.X_CELLS // 3 * Grid.CELL_SIZE, Grid.Y_CELLS // 2 * Grid.CELL_SIZE],
                          [(Grid.X_CELLS // 3 - 1) * Grid.CELL_SIZE, Grid.Y_CELLS // 2 * Grid.CELL_SIZE],
                          [(Grid.X_CELLS // 3 - 2) * Grid.CELL_SIZE, Grid.Y_CELLS // 2 * Grid.CELL_SIZE]]
@@ -188,13 +189,13 @@ def main():
                 if event.key == pygame.K_SPACE:
                     pass
                 if event.key == pygame.K_LEFT:
-                    snake.direction = LEFT if snake.direction != RIGHT else snake.direction
+                    snake.direction = Direction.LEFT.value if snake.direction != Direction.RIGHT.value else snake.direction
                 if event.key == pygame.K_RIGHT:
-                    snake.direction = RIGHT if snake.direction != LEFT else snake.direction
+                    snake.direction = Direction.RIGHT.value if snake.direction != Direction.LEFT.value else snake.direction
                 if event.key == pygame.K_UP:
-                    snake.direction = UP if snake.direction != DOWN else snake.direction
+                    snake.direction = Direction.UP.value if snake.direction != Direction.DOWN.value else snake.direction
                 if event.key == pygame.K_DOWN:
-                    snake.direction = DOWN if snake.direction != UP else snake.direction
+                    snake.direction = Direction.DOWN.value if snake.direction != Direction.UP.value else snake.direction
             if event.type == pygame.KEYUP:
                 pass
 
