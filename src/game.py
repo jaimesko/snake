@@ -1,33 +1,33 @@
 import sys
 import pygame
-
+from typing import Tuple
 from constants import Color, Grid, Direction
 from entities.snake import Snake
 from entities.food import Food
 
 class Game:
     # Constant for game speed
-    FPS = 5
+    FPS: int = 5
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Initialize pygame
         pygame.init()
 
         # Create the window
-        self.screen = pygame.display.set_mode((Grid.WIDTH, Grid.HEIGHT))
+        self.screen: pygame.Surface = pygame.display.set_mode((Grid.WIDTH, Grid.HEIGHT))
         pygame.display.set_caption("Game of Life")
 
         # Clock
-        self.clock = pygame.time.Clock()
+        self.clock: pygame.time.Clock = pygame.time.Clock()
 
         # Game state
-        self.running = True
+        self.running: bool = True
 
         # Score
-        self.score = 0
-        self.max_score = 0
+        self.score: int = 0
+        self.max_score: int = 0
 
-    def handle_events(self, snake):
+    def handle_events(self, snake: 'Snake') -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 #self.running = False
@@ -35,7 +35,7 @@ class Game:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    paused = True 
+                    paused: bool = True 
                 if event.key == pygame.K_SPACE:
                     pass
                 if event.key == pygame.K_LEFT:
@@ -49,7 +49,7 @@ class Game:
             if event.type == pygame.KEYUP:
                 pass
 
-    def update(self, snake, food):
+    def update(self, snake: 'Snake', food: 'Food') -> None:
         # Update game state here
 
         snake.move()
@@ -65,7 +65,7 @@ class Game:
             self.running = False
 
     # Draw game state here
-    def draw(self, snake, food, color=Color.GRID_COLOR.value):
+    def draw(self, snake: 'Snake', food: 'Food', color: Tuple[int, int, int] = Color.GRID_COLOR.value) -> None:
         self.screen.fill(Color.GREEN.value)
 
         for x in range(0, Grid.WIDTH, Grid.CELL_SIZE):
@@ -76,15 +76,13 @@ class Game:
         food.draw(screen=self.screen)
         snake.draw(screen=self.screen)
 
-    def run(self):
-        #while True:
-        # Added by me
+    def run(self) -> None:
         self.score = 0
         self.start_menu() #self.running #running = self.start_menu()
-        snake = Snake()
-        food = Food()
+        snake: 'Snake' = Snake()
+        food: 'Food' = Food()
         self.draw(snake, food)
-        self.running = True
+        self.running: bool = True
         # Start the game loop
         while self.running:
             self.handle_events(snake)
@@ -102,15 +100,15 @@ class Game:
                     self.run()
     
     # Start menu
-    def start_menu(self):
+    def start_menu(self) -> bool:
         # Set up the font and text for the menu
-        font = pygame.font.SysFont(None, 40)
-        title_text = font.render("Snake Game", True, Color.WHITE.value)
-        start_text = font.render("Press SPACE to start", True, Color.WHITE.value) 
+        font: pygame.font.Font = pygame.font.SysFont(None, 40)
+        title_text: pygame.Surface = font.render("Snake Game", True, Color.WHITE.value)
+        start_text: pygame.Surface = font.render("Press SPACE to start", True, Color.WHITE.value) 
 
         # Calculate the position for the texts
-        title_pos = ((Grid.WIDTH - title_text.get_width()) // 2, Grid.HEIGHT // 3)
-        start_pos = ((Grid.WIDTH - start_text.get_width()) // 2, Grid.HEIGHT // 2)
+        title_pos: Tuple[int, int] = ((Grid.WIDTH - title_text.get_width()) // 2, Grid.HEIGHT // 3)
+        start_pos: Tuple[int, int] = ((Grid.WIDTH - start_text.get_width()) // 2, Grid.HEIGHT // 2)
 
         # Display the menu on the screen
         self.screen.fill(Color.BLACK.value)
@@ -128,19 +126,19 @@ class Game:
                     return True
 
     # Game over screen
-    def game_over(self):
+    def game_over(self) -> bool:
         # Set up the font and text for the menu
-        font = pygame.font.SysFont(None, 40)
-        title_text = font.render("Game Over", True, Color.WHITE.value)
-        score_text = font.render(f"Score: {self.score}", True, Color.WHITE.value)
-        max_score_text = font.render(f"Max Score: {self.max_score}", True, Color.WHITE.value)
-        start_text = font.render("Press SPACE to restart", True, Color.WHITE.value)
+        font: pygame.font.Font = pygame.font.SysFont(None, 40)
+        title_text: pygame.Surface = font.render("Game Over", True, Color.WHITE.value)
+        score_text: pygame.Surface = font.render(f"Score: {self.score}", True, Color.WHITE.value)
+        max_score_text: pygame.Surface = font.render(f"Max Score: {self.max_score}", True, Color.WHITE.value)
+        start_text: pygame.Surface = font.render("Press SPACE to restart", True, Color.WHITE.value)
 
         # Calculate the position for the texts
-        title_pos = ((Grid.WIDTH - title_text.get_width()) // 2, Grid.HEIGHT // 4)
-        score_pos = ((Grid.WIDTH - score_text.get_width()) // 2, Grid.HEIGHT // 2 - 50)
-        max_score_pos = ((Grid.WIDTH - max_score_text.get_width()) // 2, Grid.HEIGHT // 2)
-        start_pos = ((Grid.WIDTH - start_text.get_width()) // 2, Grid.HEIGHT // 4 * 3)
+        title_pos: Tuple[int, int] = ((Grid.WIDTH - title_text.get_width()) // 2, Grid.HEIGHT // 4)
+        score_pos: Tuple[int, int] = ((Grid.WIDTH - score_text.get_width()) // 2, Grid.HEIGHT // 2 - 50)
+        max_score_pos: Tuple[int, int] = ((Grid.WIDTH - max_score_text.get_width()) // 2, Grid.HEIGHT // 2)
+        start_pos: Tuple[int, int] = ((Grid.WIDTH - start_text.get_width()) // 2, Grid.HEIGHT // 4 * 3)
 
         # Display the menu on the screen
         self.screen.fill(Color.BLACK.value)
