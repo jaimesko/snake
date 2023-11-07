@@ -1,6 +1,17 @@
+import sys
+import logging
+import pygame
 from game import Game
 
+# Configure logging
+logging.basicConfig(filename='snake.log', level=logging.ERROR)
+
 if __name__ == "__main__":
-    # Initialize and run the game
-    game = Game()
-    game.run()
+    try:
+        # Initialize and run the game
+        game = Game()
+        game.run()
+    except Exception as e:
+        logging.exception(e)
+        pygame.quit()
+        sys.exit()
