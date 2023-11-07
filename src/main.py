@@ -12,6 +12,8 @@ if __name__ == "__main__":
         game = Game()
         game.run()
     except Exception as e:
-        logging.exception(e)
+        # Error level logging for exceptions
+        logging.exception(e) 
+        
         pygame.quit()
         sys.exit()
