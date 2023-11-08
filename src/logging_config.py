@@ -11,19 +11,19 @@ def setup_logger(
     """Function to setup a custom logger with different levels for console and file output."""
 
     # Create a custom logger
-    logger = logging.getLogger(name)
+    logger: logging.Logger = logging.getLogger(name)
     logger.setLevel(logger_level)
 
     # Create a console handler
-    console_handler = logging.StreamHandler()
+    console_handler: logging.StreamHandler = logging.StreamHandler()
     console_handler.setLevel(console_level)
 
     # Create a file handler
-    file_handler = logging.FileHandler(log_file)
+    file_handler: logging.FileHandler = logging.FileHandler(log_file)
     file_handler.setLevel(file_level)
 
     # Create a formatter and add it to the handlers
-    formatter = logging.Formatter(
+    formatter: logging.Formatter = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
     console_handler.setFormatter(formatter)
@@ -34,3 +34,4 @@ def setup_logger(
     logger.addHandler(file_handler)
 
     return logger
+
