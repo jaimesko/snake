@@ -101,7 +101,7 @@ class Game:
     # Start menu
     def start_menu(self) -> bool:
         # Set up the font and text for the menu
-        font: pygame.font.Font = pygame.font.SysFont(None, 40)
+        font: pygame.font.Font = pygame.font.SysFont("Arial", 30)
         title_text: pygame.Surface = font.render("Snake Game", True, Color.WHITE.value)
         start_text: pygame.Surface = font.render("Press SPACE to start", True, Color.WHITE.value) 
 
@@ -127,7 +127,7 @@ class Game:
     # Game over screen
     def game_over(self) -> bool:
         # Set up the font and text for the menu
-        font: pygame.font.Font = pygame.font.SysFont(None, 40)
+        font: pygame.font.Font = pygame.font.SysFont("Arial", 30)
         title_text: pygame.Surface = font.render("Game Over", True, Color.WHITE.value)
         score_text: pygame.Surface = font.render(f"Score: {self.score}", True, Color.WHITE.value)
         max_score_text: pygame.Surface = font.render(f"Max Score: {self.max_score}", True, Color.WHITE.value)
