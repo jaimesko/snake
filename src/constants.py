@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 # An Enum for Colors
 class Color(Enum):
     BLACK = (0, 0, 0)
@@ -8,6 +9,7 @@ class Color(Enum):
     GREEN = (50, 200, 50)
     BLUE = (50, 50, 200)
     GRID_COLOR = (75, 225, 75)
+
 
 class Grid:
     # Constant for cell size
@@ -22,6 +24,7 @@ class Grid:
     X_MAX = WIDTH - CELL_SIZE
     Y_MIN = 0
     Y_MAX = HEIGHT - CELL_SIZE
+
 
 # An Enum for Directions
 class Direction(Enum):
