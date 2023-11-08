@@ -118,7 +118,6 @@ class Game:
             pygame.display.flip()
             self.clock.tick(self.FPS)
 
-            # Added by me
             if not self.running:
                 self.max_score = max(self.max_score, self.score)
                 self.running = self.game_over()
