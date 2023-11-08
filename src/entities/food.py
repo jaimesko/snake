@@ -1,3 +1,9 @@
+"""
+This module defines the Food class, which represents the food in the game.
+
+The Food class includes methods for initializing the food and randomly 
+placing the food on the game grid.
+"""
 import random
 import pygame
 

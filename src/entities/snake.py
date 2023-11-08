@@ -1,3 +1,10 @@
+"""
+This module defines the Snake class, which represents the snake in the game.
+
+The Snake class includes methods for initializing the snake, moving the snake, 
+growing the snake when it eats food, and checking if the snake has collided with 
+itself or the boundaries of the game grid.
+"""
 import pygame
 
 from constants import Color, Grid, Direction

@@ -1,3 +1,9 @@
+"""
+This module defines the setup_logger function, which sets up a logger for the game.
+
+The setup_logger function configures the logger to write logs to a file and 
+the console, with a specific format for the log messages.
+"""
 import logging
 
 
@@ -34,4 +40,3 @@ def setup_logger(
     logger.addHandler(file_handler)
 
     return logger
-

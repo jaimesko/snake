@@ -1,3 +1,9 @@
+"""
+This module defines constants used in the game.
+
+These constants include the colors used in the game, the size of the game grid, 
+and the directions that the snake can move.
+"""
 from enum import Enum
 
 

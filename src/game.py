@@ -1,3 +1,9 @@
+"""
+This module defines the Game class, which represents the game itself.
+
+The Game class includes methods for initializing the game, running the game loop, 
+drawing the game elements on the screen, and handling user input.
+"""
 import sys
 import pygame
 from typing import Tuple

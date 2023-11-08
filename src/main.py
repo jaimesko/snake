@@ -1,3 +1,9 @@
+"""
+This is the main module of the game. It initializes and runs the game, 
+and handles any exceptions that occur during the game.
+
+If an exception occurs, it is logged to a file and the game is exited.
+"""
 import sys
 import pygame
 from game import Game
