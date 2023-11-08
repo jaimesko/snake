@@ -6,10 +6,11 @@ from logging_config import setup_logger
 # Configure logging
 logger = setup_logger(__name__, 'snake.log')
 
-if __name__ == "__main__":
+
+def main() -> None:
     try:
         # Initialize and run the game
-        game = Game()
+        game: Game = Game()
         game.run()
     except Exception as e:
         # Error level logging for exceptions
@@ -17,3 +18,6 @@ if __name__ == "__main__":
 
         pygame.quit()
         sys.exit()
+
+if __name__ == "__main__":
+    main()
