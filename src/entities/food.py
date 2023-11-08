@@ -16,8 +16,8 @@ class Food:
         self.color: Tuple[int, int, int] = Color.RED.value
 
     def random_spawn(self, snake: 'Snake') -> None:
-        self.x: int = random.randrange(0, Grid.WIDTH, Grid.CELL_SIZE)
-        self.y: int = random.randrange(0, Grid.HEIGHT, Grid.CELL_SIZE)
+        self.x = random.randrange(0, Grid.WIDTH, Grid.CELL_SIZE)
+        self.y = random.randrange(0, Grid.HEIGHT, Grid.CELL_SIZE)
         # Check if food spawns on snake
         for element in snake.elements:
             if self.x == element[0] and self.y == element[1]:
