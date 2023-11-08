@@ -81,7 +81,7 @@ class Game:
         snake: 'Snake' = Snake()
         food: 'Food' = Food()
         self.draw(snake, food)
-        self.running: bool = True
+        self.running = True
         # Start the game loop
         while self.running:
             self.handle_events(snake)
