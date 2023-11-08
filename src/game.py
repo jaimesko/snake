@@ -2,8 +2,7 @@ import sys
 import pygame
 from typing import Tuple
 from constants import Color, Grid, Direction
-from entities.snake import Snake
-from entities.food import Food
+from entities import Snake, Food
 
 class Game:
     # Constant for game speed
