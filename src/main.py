@@ -1,10 +1,10 @@
 import sys
-import logging
 import pygame
 from game import Game
+from logging_config import setup_logger
 
 # Configure logging
-logging.basicConfig(filename='snake.log', level=logging.ERROR)
+logger = setup_logger(__name__, 'snake.log')
 
 if __name__ == "__main__":
     try:
@@ -13,7 +13,7 @@ if __name__ == "__main__":
         game.run()
     except Exception as e:
         # Error level logging for exceptions
-        logging.exception(e) 
-        
+        logger.exception(e) 
+
         pygame.quit()
         sys.exit()
