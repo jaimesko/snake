@@ -22,8 +22,7 @@ def main() -> None:
         logger.exception(e)
 
         pygame.quit()
-        sys.exit()
-
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

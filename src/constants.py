@@ -6,6 +6,11 @@ and the directions that the snake can move.
 """
 from enum import Enum
 
+class GameState(Enum):
+    MENU = 1
+    GAME = 2
+    END = 3
+    QUIT = 4
 
 # An Enum for Colors
 class Color(Enum):

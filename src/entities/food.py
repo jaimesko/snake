@@ -30,8 +30,3 @@ class Food:
         for element in snake.elements:
             if self.x == element[0] and self.y == element[1]:
                 self.random_spawn(snake)
-
-    def draw(self, screen: pygame.Surface) -> None:
-        pygame.draw.rect(
-            screen, self.color, (self.x, self.y, Grid.CELL_SIZE, Grid.CELL_SIZE)
-        )

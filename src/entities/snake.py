@@ -42,35 +42,20 @@ class Snake:
         self.elements.insert(0, head)
         self.elements = self.elements[: self.size]
 
-    def draw(self, screen: pygame.Surface) -> None:
-        for element in self.elements:
-            pygame.draw.rect(
-                screen,
-                self.color,
-                (element[0], element[1], Grid.CELL_SIZE, Grid.CELL_SIZE),
-            )
-
     def self_collision(self) -> bool:
         if self.elements[0] in self.elements[1:]:
             return True
         else:
             return False
-        # Alternative way to check for self collision
-        # for element in self.elements[1:]:
-        #    if self.elements[0] == element:
-        #        return True
-        # return False
-
+        
     def wall_collision(self) -> bool:
-        if self.elements[0][0] < 0 or self.elements[0][0] > Grid.WIDTH - Grid.CELL_SIZE:
-            return True
-        elif (
-            self.elements[0][1] < 0
-            or self.elements[0][1] > Grid.HEIGHT - Grid.CELL_SIZE
-        ):
-            return True
-        else:
-            return False
+        head = self.elements[0]
+        return (
+            head[0] < 0
+            or head[0] >= Grid.WIDTH
+            or head[1] < 0
+            or head[1] >= Grid.HEIGHT
+        )
 
     def food_collision(self, food: "Food") -> bool:
         if self.elements[0] == [food.x, food.y]:
